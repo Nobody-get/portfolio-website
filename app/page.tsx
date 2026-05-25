@@ -14,7 +14,10 @@ import {
   Rocket,
   ShieldCheck,
   Sparkles,
-  Github
+  Github,
+  FileText,
+  PlayCircle,
+  Building2
 } from "lucide-react";
 
 const navItems = ["About", "Education", "Experience", "Skills", "Projects", "Certificates", "Contact"];
@@ -82,7 +85,17 @@ const projects = [
     tech: "C++ & Arduino",
     description:
       "Designed and programmed a robot car that follows a line using Arduino microcontrollers and C++ logic.",
-    highlights: ["Applied programming fundamentals to a physical embedded-system project."]
+    highlights: ["Applied programming fundamentals to a physical embedded-system project."],
+    videos: [
+      {
+        title: "Line Follower Demo 1",
+        src: "/videos/arduino-line-follower-car-1.mp4"
+      },
+      {
+        title: "Line Follower Demo 2",
+        src: "/videos/arduino-line-follower-car-2.mp4"
+      }
+    ]
   }
 ];
 
@@ -118,6 +131,7 @@ const experience = [
     title: "Data Engineer — Working Student",
     company: "DIVINT Technology und IT Solutions GmbH",
     period: "2025 — Current",
+    companyLink: "https://www.divint.de",
     description:
       "Working on real-world data and IT projects with a focus on Microsoft Fabric, SAP HANA integration, data engineering workflows, and endpoint management."
   },
@@ -274,6 +288,24 @@ export default function PortfolioPage() {
             <h3 className="text-2xl font-bold">Technische Hochschule Augsburg, Germany</h3>
             <p className="mt-2 text-gold">B.Sc. International Information Systems — 4th Semester</p>
             <p className="mt-4 text-mist/70">2024 — Present</p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://www.tha.de"
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition hover:border-gold hover:text-gold"
+              >
+                University Website <ExternalLink size={16} />
+              </a>
+
+              <a
+                href="/documents/My-Transcript.pdf"
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-sm font-bold text-ink transition hover:bg-white"
+              >
+                View Transcript <FileText size={16} />
+              </a>
+            </div>
           </div>
 
           <div className="glass-card rounded-3xl p-7">
@@ -296,9 +328,24 @@ export default function PortfolioPage() {
                   <div className="mb-3 flex items-center gap-3 text-gold">
                     <BriefcaseBusiness size={22} /> {item.period}
                   </div>
+
                   <h3 className="text-2xl font-bold text-white">{item.title}</h3>
-                  <p className="mt-1 text-mist/68">{item.company}</p>
+
+                  <div className="mt-1 flex flex-wrap items-center gap-3 text-mist/68">
+                    <span>{item.company}</span>
+
+                    {"companyLink" in item && item.companyLink ? (
+                      <a
+                        href={item.companyLink}
+                        target="_blank"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-gold hover:text-white"
+                      >
+                        Company Website <ExternalLink size={14} />
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
+
                 <ShieldCheck className="hidden text-gold md:block" size={30} />
               </div>
 
@@ -354,6 +401,30 @@ export default function PortfolioPage() {
                   </li>
                 ))}
               </ul>
+
+              {"videos" in project && project.videos ? (
+                <div className="mt-6">
+                  <div className="mb-4 flex items-center gap-2 text-gold">
+                    <PlayCircle size={20} />
+                    <h4 className="font-bold">Project Videos</h4>
+                  </div>
+
+                  <div className="grid gap-5 md:grid-cols-2">
+                    {project.videos.map((video) => (
+                      <div key={video.src} className="overflow-hidden rounded-3xl border border-white/10 bg-black/30">
+                        <video controls preload="metadata" className="h-full w-full rounded-3xl">
+                          <source src={video.src} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+
+                        <p className="px-4 pb-4 pt-3 text-sm font-semibold text-mist/75">
+                          {video.title}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
@@ -396,7 +467,7 @@ export default function PortfolioPage() {
             I am open to opportunities where I can contribute to practical IT, data engineering, analytics, and software projects while continuing to grow professionally.
           </SectionTitle>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
             <a className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-gold" href="mailto:youssef.abdelaziz@tha.de">
               <Mail className="mb-4 text-gold" />
               <p className="font-bold">Email</p>
@@ -413,6 +484,16 @@ export default function PortfolioPage() {
               <Github className="mb-4 text-gold" />
               <p className="font-bold">GitHub</p>
               <p className="mt-1 text-sm text-mist/70">github.com/Nobody-get</p>
+            </a>
+
+            <a
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-gold"
+              href="https://www.divint.de"
+              target="_blank"
+            >
+              <Building2 className="mb-4 text-gold" />
+              <p className="font-bold">Company</p>
+              <p className="mt-1 text-sm text-mist/70">DIVINT Technology und IT Solutions GmbH</p>
             </a>
 
             <a className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-gold" href="/cv/youssef-abdelaziz-cv.pdf" target="_blank">
