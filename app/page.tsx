@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
   Award,
@@ -110,7 +110,8 @@ const content = {
     downloadCV: "Lebenslauf herunterladen",
 
     aboutEyebrow: "Über mich",
-    aboutTitle: "Ein praxisorientiertes Profil in Data Engineering und Software mit internationalem akademischem Hintergrund.",
+    aboutTitle:
+      "Ein praxisorientiertes Profil in Data Engineering und Software mit internationalem akademischem Hintergrund.",
     aboutText:
       "Mein Hintergrund verbindet Informatikstudien in Ägypten mit International Information Systems in Deutschland. Mein Fokus liegt darauf, technisches Wissen in echten Projektwert umzuwandeln — besonders in Datenpipelines, analysebereiten Datensätzen, Applikationslogik und modernen Business-Systemen.",
 
@@ -172,14 +173,42 @@ const content = {
 const skills = {
   en: [
     { group: "Programming", items: ["C++", "Java", "Python", "HTML", "CSS", "JavaScript", "SQL"] },
-    { group: "Data & Analytics", items: ["Microsoft Fabric", "Power BI", "Excel", "PySpark", "Data Pipelines", "Lakehouse", "Medallion Architecture"] },
-    { group: "Software & Cloud", items: ["Flutter", "Firebase", "OpenAI API", "REST APIs", "Microsoft Intune", "Endpoint Manager"] },
+    {
+      group: "Data & Analytics",
+      items: [
+        "Microsoft Fabric",
+        "Power BI",
+        "Excel",
+        "PySpark",
+        "Data Pipelines",
+        "Lakehouse",
+        "Medallion Architecture"
+      ]
+    },
+    {
+      group: "Software & Cloud",
+      items: ["Flutter", "Firebase", "OpenAI API", "REST APIs", "Microsoft Intune", "Endpoint Manager"]
+    },
     { group: "Languages", items: ["Arabic — Native", "English — B2", "German — A2"] }
   ],
   de: [
     { group: "Programmierung", items: ["C++", "Java", "Python", "HTML", "CSS", "JavaScript", "SQL"] },
-    { group: "Data & Analytics", items: ["Microsoft Fabric", "Power BI", "Excel", "PySpark", "Data Pipelines", "Lakehouse", "Medallion Architecture"] },
-    { group: "Software & Cloud", items: ["Flutter", "Firebase", "OpenAI API", "REST APIs", "Microsoft Intune", "Endpoint Manager"] },
+    {
+      group: "Data & Analytics",
+      items: [
+        "Microsoft Fabric",
+        "Power BI",
+        "Excel",
+        "PySpark",
+        "Data Pipelines",
+        "Lakehouse",
+        "Medallion Architecture"
+      ]
+    },
+    {
+      group: "Software & Cloud",
+      items: ["Flutter", "Firebase", "OpenAI API", "REST APIs", "Microsoft Intune", "Endpoint Manager"]
+    },
     { group: "Sprachen", items: ["Arabisch — Muttersprache", "Englisch — B2", "Deutsch — A2"] }
   ]
 };
@@ -461,7 +490,7 @@ function SectionTitle({
 }: {
   eyebrow: string;
   title: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }) {
   return (
     <div className="mb-10 max-w-3xl">
@@ -472,7 +501,7 @@ function SectionTitle({
   );
 }
 
-function Pill({ children }: { children: React.ReactNode }) {
+function Pill({ children }: { children: ReactNode }) {
   return (
     <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-sm text-mist/85">
       {children}
@@ -485,7 +514,13 @@ export default function PortfolioPage() {
   const t = content[language];
 
   return (
-    <main className="min-h-screen overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden">
+      <div className="site-particles pointer-events-none fixed inset-0">
+        {Array.from({ length: 34 }).map((_, i) => (
+          <span key={i} className="particle"></span>
+        ))}
+      </div>
+
       <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/76 backdrop-blur-xl">
         <nav className="section-shell flex h-16 items-center justify-between">
           <a href="#home" className="flex items-center gap-3 font-semibold text-white">
@@ -574,7 +609,11 @@ export default function PortfolioPage() {
                     { Icon: Database, label: language === "en" ? "Current Focus" : "Aktueller Fokus", value: "Microsoft Fabric, Lakehouse, SQL, PySpark" },
                     { Icon: Award, label: language === "en" ? "Certified" : "Zertifiziert", value: "DP-600 & DP-700 Microsoft Fabric" },
                     { Icon: MapPin, label: language === "en" ? "Based in" : "Standort", value: "Germany" },
-                    { Icon: Languages, label: language === "en" ? "Languages" : "Sprachen", value: language === "en" ? "Arabic, English B2, German A2" : "Arabisch, Englisch B2, Deutsch A2" }
+                    {
+                      Icon: Languages,
+                      label: language === "en" ? "Languages" : "Sprachen",
+                      value: language === "en" ? "Arabic, English B2, German A2" : "Arabisch, Englisch B2, Deutsch A2"
+                    }
                   ].map(({ Icon, label, value }) => (
                     <div key={label} className="flex gap-4 rounded-2xl border border-white/10 bg-ink/45 p-4">
                       <Icon className="mt-1 text-gold" size={22} />
@@ -689,7 +728,9 @@ export default function PortfolioPage() {
             <div key={skill.group} className="glass-card rounded-3xl p-7">
               <h3 className="mb-5 text-xl font-bold text-white">{skill.group}</h3>
               <div className="flex flex-wrap gap-3">
-                {skill.items.map((item) => <Pill key={item}>{item}</Pill>)}
+                {skill.items.map((item) => (
+                  <Pill key={item}>{item}</Pill>
+                ))}
               </div>
             </div>
           ))}
@@ -710,7 +751,9 @@ export default function PortfolioPage() {
                     Project {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-                  <p className="mt-2 text-mist/65">{project.company} · {project.role}</p>
+                  <p className="mt-2 text-mist/65">
+                    {project.company} · {project.role}
+                  </p>
                 </div>
 
                 <p className="max-w-md rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-sm leading-6 text-mist/72">
@@ -730,11 +773,7 @@ export default function PortfolioPage() {
 
               {"reportHref" in project && project.reportHref ? (
                 <div className="mt-6">
-                  <a
-                    href={project.reportHref}
-                    target="_blank"
-                    className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-bold text-ink transition hover:bg-white"
-                  >
+                  <a href={project.reportHref} target="_blank" className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-bold text-ink transition hover:bg-white">
                     {t.viewProjectReport} <FileText size={17} />
                   </a>
                 </div>
@@ -750,11 +789,7 @@ export default function PortfolioPage() {
                   <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     {project.images.map((image) => (
                       <div key={image.src} className="overflow-hidden rounded-3xl border border-white/10 bg-black/30 p-3">
-                        <img
-                          src={image.src}
-                          alt={image.title}
-                          className="h-80 w-full rounded-2xl object-contain"
-                        />
+                        <img src={image.src} alt={image.title} className="h-80 w-full rounded-2xl object-contain" />
                         <p className="px-2 pt-3 text-sm font-semibold text-mist/75">{image.title}</p>
                       </div>
                     ))}
@@ -777,9 +812,7 @@ export default function PortfolioPage() {
                           Your browser does not support the video tag.
                         </video>
 
-                        <p className="px-4 pb-4 pt-3 text-sm font-semibold text-mist/75">
-                          {video.title}
-                        </p>
+                        <p className="px-4 pb-4 pt-3 text-sm font-semibold text-mist/75">{video.title}</p>
                       </div>
                     ))}
                   </div>
@@ -797,7 +830,12 @@ export default function PortfolioPage() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {certificates[language].map((cert) => (
-            <a key={cert.title} href={cert.href} className="glass-card group rounded-3xl p-7 transition hover:-translate-y-1 hover:border-gold/45" target={cert.href.startsWith("/") ? "_blank" : undefined}>
+            <a
+              key={cert.title}
+              href={cert.href}
+              className="glass-card group rounded-3xl p-7 transition hover:-translate-y-1 hover:border-gold/45"
+              target={cert.href.startsWith("/") ? "_blank" : undefined}
+            >
               <Award className="mb-6 text-gold" size={34} />
               <p className="mb-3 inline-flex rounded-full bg-gold/12 px-3 py-1 text-sm font-bold text-gold">{cert.exam}</p>
               <h3 className="text-xl font-bold text-white">{cert.title}</h3>
@@ -857,7 +895,9 @@ export default function PortfolioPage() {
       </section>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-mist/55">
-        <p>© {new Date().getFullYear()} Youssef Abdelaziz. {t.footer}</p>
+        <p>
+          © {new Date().getFullYear()} Youssef Abdelaziz. {t.footer}
+        </p>
       </footer>
     </main>
   );
